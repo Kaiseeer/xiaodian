@@ -10,7 +10,7 @@ const vueWebTemp = helper.rootNode(config.templateDir)
 const hasPluginInstalled = fs.existsSync(helper.rootNode(config.pluginFilePath))
 const isWin = /^win/.test(process.platform)
 
-// Wraping the entry file for web.
+// Wrapping the entry file for web.
 const getEntryFileContent = (entryPath, vueFilePath) => {
 	let relativeVuePath = path.relative(path.join(entryPath, '../'), vueFilePath)
 	let relativeEntryPath = helper.rootNode(config.entryFilePath)
@@ -41,26 +41,32 @@ const getEntryFile = (dir) => {
 	dir = dir || '.'
 	const directory = helper.root(dir) // 拼接文件地址 root是开发页面的根路径
 	console.log(`###directory: ${JSON.stringify(directory)}`)
+	console.log(`###before: webEntry: ${JSON.stringify(webEntry)}`)
 	console.log(`###before: weexEntry: ${JSON.stringify(weexEntry)}`)
 	fs.readdirSync(directory).forEach((file) => { // 读取该路径下所有文件
 		const fullpath = path.join(directory, file) // 拼接文件目录
-		const stat = fs.statSync(fullpath)
-		console.log(`###stat: ${stat}`)
+		const stat = fs.statSync(fullpath) // 返回文件状态
+		console.log(`###stat: ${JSON.stringify(stat)}`)
 		const extname = path.extname(fullpath)
+		console.log(`###extname: ${extname}`)
 		if (stat.isFile() && extname === '.vue') {
-			const name = path.join(dir, path.basename(file, extname))
-			if (extname === '.vue') {
+			const name = path.join(dir, path.basename(file, extname)) // base 获取去除了后缀名的文件名
+			console.log(`### path.basename(file, extname) :${ path.basename(file, extname)}`)
+			if (extname === '.vue') { // 多余的判断
+				console.log(`###vueWebTemp: ${vueWebTemp}`)
 				const entryFile = path.join(vueWebTemp, dir, path.basename(file, extname) + '.js')
+				console.log(`###entryFile: ${entryFile}`)
 				fs.outputFileSync(path.join(entryFile), getEntryFileContent(entryFile, fullpath))
-				webEntry[name] = path.join(entryFile) + '?entry=true'
+				console.log(`### getEntryFileContent(entryFile, fullpath): ${getEntryFileContent(entryFile, fullpath)}`)
+				webEntry[name] = path.join(entryFile) + '?entry=true'  // 文件名映射到文件目录
 			}
-			weexEntry[name] = fullpath + '?entry=true'
-		}
-		else if (stat.isDirectory() && file !== 'build' && file !== 'include') {
+			weexEntry[name] = fullpath + '?entry=true' // 文件名映射到文件目录
+		} else if (stat.isDirectory() && file !== 'build' && file !== 'include') {
 			const subdir = path.join(dir, file)
-			getEntryFile(subdir)
+			getEntryFile(subdir) // 递归遍历文件夹 查找vue文件
 		}
 	})
+	console.log(`###after: webEntry: ${JSON.stringify(webEntry)}`)
 	console.log(`###after: weexEntry: ${JSON.stringify(weexEntry)}`)
 }
 
