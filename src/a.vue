@@ -19,8 +19,10 @@
 		},
 		methods: {
 			jump (event) {
+				var url = this.$getConfig().bundleUrl
+				url = url.split('/').slice(0, -1).join('/') + '/index.js'
 				navigator.push({
-					url: 'file://assets/dist/index.js',
+					url: url,
 					animated: 'true'
 				}, event => {
 					console.log(`##weex.config.bundleUrl: ${weex.config.bundleUrl}##`)

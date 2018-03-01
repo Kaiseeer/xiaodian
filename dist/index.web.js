@@ -62,7 +62,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 16);
+/******/ 	return __webpack_require__(__webpack_require__.s = 17);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -20750,13 +20750,69 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 10 */,
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+exports.getBaseURL = function (vm) {
+	var bundleUrl = weex.config.bundleUrl;
+	var nativeBase;
+	var isAndroidAssets = bundleUrl.indexOf( /*'your_current_IP'*/'192.168.6.173') >= 0 || bundleUrl.indexOf('file://assets/') >= 0;
+	var isiOSAssets = bundleUrl.indexOf('file:///') >= 0 && bundleUrl.indexOf('WeexDemo.app') > 0;
+	if (isAndroidAssets) {
+		nativeBase = 'file://assets/';
+	} else if (isiOSAssets) {
+		// file:///var/mobile/Containers/Bundle/Application/{id}/WeexDemo.app/
+		// file:///Users/{user}/Library/Developer/CoreSimulator/Devices/{id}/data/Containers/Bundle/Application/{id}/WeexDemo.app/
+		nativeBase = bundleUrl.substring(0, bundleUrl.lastIndexOf('/') + 1);
+	} else {
+		var host = 'localhost:12580';
+		var matches = /\/\/([^\/]+?)\//.exec(weex.config.bundleUrl);
+		if (matches && matches.length >= 2) {
+			host = matches[1];
+		}
+		nativeBase = 'http://' + host + '/' + vm.dir + '/build/';
+	}
+	var h5Base = './vue.html?page=./' + vm.dir + '/build/';
+	// in Native
+	var base = nativeBase;
+	if ((typeof window === 'undefined' ? 'undefined' : _typeof(window)) === 'object') {
+		// in Browser or WebView
+		base = h5Base;
+	}
+	return base;
+};
+
+/***/ }),
 /* 11 */,
 /* 12 */,
 /* 13 */,
 /* 14 */,
 /* 15 */,
-/* 16 */
+/* 16 */,
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20786,24 +20842,24 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _weexVueRender2.default.init(_vue2.default);
 
-var App = __webpack_require__(17);
+var App = __webpack_require__(18);
 App.el = '#root';
 new _vue2.default(App);
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(18)
+  __webpack_require__(19)
 }
 var Component = __webpack_require__(9)(
   /* script */
-  __webpack_require__(20),
-  /* template */
   __webpack_require__(21),
+  /* template */
+  __webpack_require__(22),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -20835,13 +20891,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(19);
+var content = __webpack_require__(20);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -20861,7 +20917,7 @@ if(false) {
 }
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -20875,7 +20931,7 @@ exports.push([module.i, "\n.wrapper[data-v-7a4310b7] {\n  -ms-flex-pack: center;
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20884,6 +20940,13 @@ exports.push([module.i, "\n.wrapper[data-v-7a4310b7] {\n  -ms-flex-pack: center;
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+
+var _baseUrl = __webpack_require__(10);
+
+var _baseUrl2 = _interopRequireDefault(_baseUrl);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 //
 //
 //
@@ -20906,8 +20969,11 @@ exports.default = {
 
 	methods: {
 		jump: function jump(event) {
+			var url = this.$getConfig().bundleUrl;
+			url = url.split('/').slice(0, -1).join('/') + '/a.js';
+			console.log(url);
 			navigator.push({
-				url: 'file://assets/dist/a.js',
+				url: url,
 				animated: 'true'
 			}, function (event) {
 				console.log('##weex.config.bundleUrl: ' + weex.config.bundleUrl + '##');
@@ -20917,7 +20983,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;

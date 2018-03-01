@@ -11,6 +11,8 @@
 
 <script>
 	var navigator = weex.requireModule('navigator')
+	import getBaseURL from './utils/base-url'
+
 	export default {
 
 		data () {
@@ -20,8 +22,11 @@
 		},
 		methods: {
 			jump (event) {
+				var url = this.$getConfig().bundleUrl
+				url = url.split('/').slice(0, -1).join('/') + '/a.js'
+				console.log(url)
 				navigator.push({
-					url: 'file://assets/dist/a.js',
+					url: url,
 					animated: 'true'
 				}, event => {
 					console.log(`##weex.config.bundleUrl: ${weex.config.bundleUrl}##`)
