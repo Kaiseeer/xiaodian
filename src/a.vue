@@ -3,14 +3,28 @@
     <image :src="logo" class="logo"></image>
     <text class="greeting">The environment is ready!</text>
     <text class="message">这是a.vue</text>
+    <a @click="jump">
+      <text>Jump to index.vue</text>
+    </a>
   </div>
 </template>
 
 <script>
+	var navigator = weex.requireModule('navigator')
 	export default {
 		data () {
 			return {
 				logo: 'https://gw.alicdn.com/tfs/TB1yopEdgoQMeJjy1XaXXcSsFXa-640-302.png'
+			}
+		},
+		methods: {
+			jump (event) {
+				navigator.push({
+					url: 'file://assets/dist/index.js',
+					animated: 'true'
+				}, event => {
+					console.log(`##weex.config.bundleUrl: ${weex.config.bundleUrl}##`)
+				})
 			}
 		}
 	}

@@ -165,11 +165,23 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 
+var navigator = weex.requireModule('navigator');
 exports.default = {
 	data: function data() {
 		return {
 			logo: 'https://gw.alicdn.com/tfs/TB1yopEdgoQMeJjy1XaXXcSsFXa-640-302.png'
 		};
+	},
+
+	methods: {
+		jump: function jump(event) {
+			navigator.push({
+				url: 'file://assets/dist/a.js',
+				animated: 'true'
+			}, function (event) {
+				console.log('##weex.config.bundleUrl: ' + weex.config.bundleUrl + '##');
+			});
+		}
 	}
 };
 
@@ -189,14 +201,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: ["greeting"]
   }, [_vm._v("The environment is ready!")]), _c('text', {
     staticClass: ["message"]
-  }, [_vm._v("Now, let's use Vue.js to build your Weex app.")]), _vm._m(0)])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('a', {
-    attrs: {
-      "href": "http://192.168.6.173:8081/dist/a.js"
+  }, [_vm._v("Now, let's use Vue.js to build your Weex app.")]), _c('a', {
+    on: {
+      "click": _vm.jump
     }
-  }, [_c('text', [_vm._v("Jump")])])
-}]}
+  }, [_c('text', [_vm._v("Jump to a.vue")])])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 
 /***/ })

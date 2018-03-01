@@ -20882,7 +20882,7 @@ exports.push([module.i, "\n.wrapper[data-v-7a4310b7] {\n  -ms-flex-pack: center;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 //
 //
@@ -20892,13 +20892,28 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 //
+//
+//
+//
 
+var navigator = weex.requireModule('navigator');
 exports.default = {
-  data: function data() {
-    return {
-      logo: 'https://gw.alicdn.com/tfs/TB1yopEdgoQMeJjy1XaXXcSsFXa-640-302.png'
-    };
-  }
+	data: function data() {
+		return {
+			logo: 'https://gw.alicdn.com/tfs/TB1yopEdgoQMeJjy1XaXXcSsFXa-640-302.png'
+		};
+	},
+
+	methods: {
+		jump: function jump(event) {
+			navigator.push({
+				url: 'file://assets/dist/a.js',
+				animated: 'true'
+			}, function (event) {
+				console.log('##weex.config.bundleUrl: ' + weex.config.bundleUrl + '##');
+			});
+		}
+	}
 };
 
 /***/ }),
@@ -20925,7 +20940,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "message",
     staticStyle: _vm.$processStyle(undefined),
     style: (_vm.$processStyle(undefined))
-  }, [_vm._v("Now, let's use Vue.js to build your Weex app.")])])
+  }, [_vm._v("Now, let's use Vue.js to build your Weex app.")]), _vm._v(" "), _c('a', {
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle(undefined)),
+    on: {
+      "click": _vm.jump
+    }
+  }, [_c('text', [_vm._v("Jump to a.vue")])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

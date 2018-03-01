@@ -57,8 +57,7 @@ const config = {
 		productionSourceMap: true,
 		// https://webpack.js.org/configuration/devtool/#production
 		devtool: '#source-map',
-		cssSourceMap: true,
-		productionSourceMap: true
+		cssSourceMap: true
 	},
 	nodeConfiguration: {
 		global: false,

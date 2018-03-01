@@ -3,17 +3,29 @@
     <image :src="logo" class="logo"></image>
     <text class="greeting">The environment is ready!</text>
     <text class="message">Now, let's use Vue.js to build your Weex app.</text>
-    <a href="http://192.168.6.173:8081/dist/a.js">
-      <text>Jump</text>
+    <a @click="jump">
+      <text>Jump to a.vue</text>
     </a>
   </div>
 </template>
 
 <script>
+	var navigator = weex.requireModule('navigator')
 	export default {
+
 		data () {
 			return {
 				logo: 'https://gw.alicdn.com/tfs/TB1yopEdgoQMeJjy1XaXXcSsFXa-640-302.png'
+			}
+		},
+		methods: {
+			jump (event) {
+				navigator.push({
+					url: 'file://assets/dist/a.js',
+					animated: 'true'
+				}, event => {
+					console.log(`##weex.config.bundleUrl: ${weex.config.bundleUrl}##`)
+				})
 			}
 		}
 	}
