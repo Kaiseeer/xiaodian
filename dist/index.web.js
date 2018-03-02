@@ -62,7 +62,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 17);
+/******/ 	return __webpack_require__(__webpack_require__.s = 23);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -20812,7 +20812,13 @@ exports.getBaseURL = function (vm) {
 /* 14 */,
 /* 15 */,
 /* 16 */,
-/* 17 */
+/* 17 */,
+/* 18 */,
+/* 19 */,
+/* 20 */,
+/* 21 */,
+/* 22 */,
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20842,24 +20848,24 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _weexVueRender2.default.init(_vue2.default);
 
-var App = __webpack_require__(18);
+var App = __webpack_require__(24);
 App.el = '#root';
 new _vue2.default(App);
 
 /***/ }),
-/* 18 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(19)
+  __webpack_require__(25)
 }
 var Component = __webpack_require__(9)(
   /* script */
-  __webpack_require__(21),
+  __webpack_require__(27),
   /* template */
-  __webpack_require__(22),
+  __webpack_require__(28),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -20891,13 +20897,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 19 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(20);
+var content = __webpack_require__(26);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -20917,7 +20923,7 @@ if(false) {
 }
 
 /***/ }),
-/* 20 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -20925,13 +20931,13 @@ exports = module.exports = __webpack_require__(6)(false);
 
 
 // module
-exports.push([module.i, "\n.wrapper[data-v-7a4310b7] {\n  -ms-flex-pack: center;\n      justify-content: center;\n  -ms-flex-align: center;\n      align-items: center;\n}\n.logo[data-v-7a4310b7] {\n  width: 424px;\n  height: 200px;\n}\n.greeting[data-v-7a4310b7] {\n  margin-top: 70px;\n  font-size: 50px;\n  color: #41B883;\n}\n.message[data-v-7a4310b7] {\n  margin: 30px;\n  font-size: 32px;\n  color: #727272;\n}\n", ""]);
+exports.push([module.i, "\n.wrapper[data-v-7a4310b7] {\n  -ms-flex-pack: center;\n      justify-content: center;\n  -ms-flex-align: center;\n      align-items: center;\n}\n.logo[data-v-7a4310b7] {\n  width: 424px;\n  height: 200px;\n}\n.greeting[data-v-7a4310b7] {\n  margin-top: 70px;\n  font-size: 50px;\n  color: #41B883;\n}\n.message[data-v-7a4310b7] {\n  margin: 30px;\n  font-size: 32px;\n  color: #727272;\n}\n.btn[data-v-7a4310b7] {\n  width: 750px;\n  height: 200px;\n  background: #c0c0c0;\n  margin-bottom: 10px;\n  text-align: center;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 21 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20940,13 +20946,15 @@ exports.push([module.i, "\n.wrapper[data-v-7a4310b7] {\n  -ms-flex-pack: center;
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-
-var _baseUrl = __webpack_require__(10);
-
-var _baseUrl2 = _interopRequireDefault(_baseUrl);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -20960,6 +20968,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 
 var navigator = weex.requireModule('navigator');
+var getBaseURL = __webpack_require__(10).getBaseURL;
+
 exports.default = {
 	data: function data() {
 		return {
@@ -20969,9 +20979,7 @@ exports.default = {
 
 	methods: {
 		jump: function jump(event) {
-			var url = this.$getConfig().bundleUrl;
-			url = url.split('/').slice(0, -1).join('/') + '/a.js';
-			console.log(url);
+			var url = 'file://assets/dist/b.js';
 			navigator.push({
 				url: url,
 				animated: 'true'
@@ -20983,7 +20991,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 22 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -21007,12 +21015,42 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: _vm.$processStyle(undefined),
     style: (_vm.$processStyle(undefined))
   }, [_vm._v("Now, let's use Vue.js to build your Weex app.")]), _vm._v(" "), _c('a', {
+    staticClass: "btn",
     staticStyle: _vm.$processStyle(undefined),
     style: (_vm.$processStyle(undefined)),
     on: {
-      "click": _vm.jump
+      "click": function($event) {
+        _vm.jump('file://assets/a.js')
+      }
     }
-  }, [_c('text', [_vm._v("Jump to a.vue")])])])
+  }, [_c('text', [_vm._v("file://assets/a.js")])]), _vm._v(" "), _c('a', {
+    staticClass: "btn",
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle(undefined)),
+    on: {
+      "click": function($event) {
+        _vm.jump('file://assets/b.js')
+      }
+    }
+  }, [_c('text', [_vm._v("file://assets/b.js")])]), _vm._v(" "), _c('a', {
+    staticClass: "btn",
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle(undefined)),
+    on: {
+      "click": function($event) {
+        _vm.jump('file://assets/dist/a.js')
+      }
+    }
+  }, [_c('text', [_vm._v("file://assets/dist/a.js")])]), _vm._v(" "), _c('a', {
+    staticClass: "btn",
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle(undefined)),
+    on: {
+      "click": function($event) {
+        _vm.jump('file://assets/dist/b.js')
+      }
+    }
+  }, [_c('text', [_vm._v("file://assets/dist/b.js")])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

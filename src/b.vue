@@ -2,7 +2,7 @@
   <div class="wrapper">
     <image :src="logo" class="logo"></image>
     <text class="greeting">The environment is ready!</text>
-    <text class="message">这是a.vue</text>
+    <text class="message">这是b.vue</text>
     <a @click="jump">
       <text>Jump to index.vue</text>
     </a>

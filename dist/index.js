@@ -62,7 +62,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -126,21 +126,25 @@ exports.getBaseURL = function (vm) {
 /* 2 */,
 /* 3 */,
 /* 4 */,
-/* 5 */
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __vue_exports__, __vue_options__
 var __vue_styles__ = []
 
 /* styles */
-__vue_styles__.push(__webpack_require__(6)
+__vue_styles__.push(__webpack_require__(10)
 )
 
 /* script */
-__vue_exports__ = __webpack_require__(7)
+__vue_exports__ = __webpack_require__(11)
 
 /* template */
-var __vue_template__ = __webpack_require__(8)
+var __vue_template__ = __webpack_require__(12)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -172,7 +176,7 @@ new Vue(module.exports)
 
 
 /***/ }),
-/* 6 */
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -196,11 +200,18 @@ module.exports = {
     "marginLeft": "30",
     "fontSize": "32",
     "color": "#727272"
+  },
+  "btn": {
+    "width": "750",
+    "height": "200",
+    "background": "#c0c0c0",
+    "marginBottom": "10",
+    "textAlign": "center"
   }
 }
 
 /***/ }),
-/* 7 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -209,13 +220,15 @@ module.exports = {
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-
-var _baseUrl = __webpack_require__(0);
-
-var _baseUrl2 = _interopRequireDefault(_baseUrl);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -229,6 +242,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 
 var navigator = weex.requireModule('navigator');
+var getBaseURL = __webpack_require__(0).getBaseURL;
+
 exports.default = {
 	data: function data() {
 		return {
@@ -238,9 +253,7 @@ exports.default = {
 
 	methods: {
 		jump: function jump(event) {
-			var url = this.$getConfig().bundleUrl;
-			url = url.split('/').slice(0, -1).join('/') + '/a.js';
-			console.log(url);
+			var url = 'file://assets/dist/b.js';
 			navigator.push({
 				url: url,
 				animated: 'true'
@@ -252,7 +265,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 8 */
+/* 12 */
 /***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -268,10 +281,34 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("The environment is ready!")]), _c('text', {
     staticClass: ["message"]
   }, [_vm._v("Now, let's use Vue.js to build your Weex app.")]), _c('a', {
+    staticClass: ["btn"],
     on: {
-      "click": _vm.jump
+      "click": function($event) {
+        _vm.jump('file://assets/a.js')
+      }
     }
-  }, [_c('text', [_vm._v("Jump to a.vue")])])])
+  }, [_c('text', [_vm._v("file://assets/a.js")])]), _c('a', {
+    staticClass: ["btn"],
+    on: {
+      "click": function($event) {
+        _vm.jump('file://assets/b.js')
+      }
+    }
+  }, [_c('text', [_vm._v("file://assets/b.js")])]), _c('a', {
+    staticClass: ["btn"],
+    on: {
+      "click": function($event) {
+        _vm.jump('file://assets/dist/a.js')
+      }
+    }
+  }, [_c('text', [_vm._v("file://assets/dist/a.js")])]), _c('a', {
+    staticClass: ["btn"],
+    on: {
+      "click": function($event) {
+        _vm.jump('file://assets/dist/b.js')
+      }
+    }
+  }, [_c('text', [_vm._v("file://assets/dist/b.js")])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 
